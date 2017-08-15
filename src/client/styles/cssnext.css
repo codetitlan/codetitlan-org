@@ -1,0 +1,14 @@
+body {
+  background-color: #fdffff;
+}
+
+.button-wrapper {
+  text-align: center;
+  padding-top: 100px;
+}
+
+
+.big-red-button {
+  --wcmdl-button-width: 200px;
+  --wcmdl-button-height: 200px;
+}
