@@ -1,20 +1,14 @@
 // @flow
-/* global document */
-
 // import runtime from 'serviceworker-webpack-plugin/lib/runtime';
-import { insertDelayedButton, renderApp, buttonsMarkup } from './app';
+import newLoop from './app';
+// import { getRootElement } from './app/helpers/dom-helpers';
 import { getRootElement, clearRootElement } from './app/helpers/dom-helpers';
 
-declare var customElements;
-
-function renderWrapper(targetElement: HTMLElement) {
-  renderApp(targetElement, buttonsMarkup());
-  insertDelayedButton(targetElement);
-}
-
+// getRootElement();
 const rootElement = getRootElement();
 
-renderWrapper(rootElement);
+const loop = newLoop('#root');
+loop();
 
 if (module.hot) {
   module.hot.accept();

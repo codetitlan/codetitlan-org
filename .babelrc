@@ -7,8 +7,10 @@
     "transform-class-properties",
     "transform-custom-element-classes",
     "transform-es2015-classes",
+    "syntax-jsx",
     ["babel-plugin-transform-builtin-classes", {
       "globals": ["Array", "Error", "HTMLElement"]
-    }]
+    }],
+    ["transform-react-jsx", {"pragma": "html"}]
   ]
 }

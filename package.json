@@ -1,5 +1,5 @@
 {
-  "name": "big-red-button",
+  "name": "codetitlan-org",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -25,6 +25,9 @@
     "tunnel": "lt --port 3000"
   },
   "dependencies": {
+    "@cycle/dom": "^18.1.0",
+    "@cycle/run": "^3.2.0",
+    "@cycle/xstream-run": "^4.2.0",
     "hammerjs": "^2.0.8",
     "http-server": "^0.10.0",
     "material-design-icons": "^3.0.1",
@@ -32,7 +35,11 @@
     "nodemon": "^1.11.0",
     "roboto-fontface": "^0.8.0",
     "serviceworker-webpack-plugin": "^0.2.3",
-    "webcomponentsjs": "^1.0.2"
+    "snabbdom": "^0.7.0",
+    "snabbdom-jsx": "^0.3.1",
+    "union-type": "^0.4.0",
+    "webcomponentsjs": "^1.0.2",
+    "xstream": "^10.9.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -46,6 +53,7 @@
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
@@ -67,6 +75,7 @@
     "flow": "^0.2.3",
     "flow-babel-webpack-plugin": "^1.1.0",
     "flow-bin": "^0.52.0",
+    "flow-typed": "^2.1.5",
     "html-webpack-plugin": "^2.30.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",

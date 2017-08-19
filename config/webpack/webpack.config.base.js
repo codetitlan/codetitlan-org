@@ -99,7 +99,7 @@ const baseConfig = {
       client: path.join(__dirname, '../../src/client'),
       server: path.join(__dirname, '../../src/server'),
     },
-    extensions: ['.js', '.json', '.scss', '.sass', '.sss', '.css'],
+    extensions: ['.js', '.jsx', '.json', '.scss', '.sass', '.sss', '.css'],
   },
 
   plugins: [
