@@ -8,9 +8,10 @@ export function clearRootElement(rootElement: HTMLElement) {
 }
 
 export function getRootElement() {
+  const rootElement = document.createElement('div');
+  rootElement.setAttribute('id', 'root');
+
   if (!document.body) throw new Error('Unexpectedly missing a <body> tag');
   document.body.innerHTML = ''; //eslint-disable-line
-  return document.body.appendChild(
-    document.createElement('div'),
-  );
+  return document.body.appendChild(rootElement);
 }
