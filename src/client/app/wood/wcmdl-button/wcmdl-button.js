@@ -1,12 +1,11 @@
 // @flow
-/* global document */
 import Hammer from 'hammerjs';
 import componentHandler from 'material-design-lite/material';
 
 import injectStyles from '../../helpers/ce-helpers/injectStyles';
 import styles from './styles.scss';
 
-export default class CompMdlButton extends HTMLElement {
+export default class WcmdlButton extends HTMLElement {
 
   name: string;
   icon: string;

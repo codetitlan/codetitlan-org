@@ -1,16 +1,17 @@
 /** @jsx html */
 // @flow
-import xs from 'xstream';
 import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';
-import LabeledSlider from './labeledSlider';
+import AppContainer from './app-container';
+import WcmdlButton from './wood/wcmdl-button';
 
-export default function newLoop(selector: string) {
+if (!customElements.get('wcmdl-button')) {
+  customElements.define('wcmdl-button', WcmdlButton);
+}
+
+export default function App(selector: string) {
   return () => {
-    run(LabeledSlider, {
-      props: () => xs.of({
-        label: 'Weights', unit: 'kg', min: 45, value: 70, max: 140,
-      }),
+    run(AppContainer, {
       DOM: makeDOMDriver(selector),
     });
   };

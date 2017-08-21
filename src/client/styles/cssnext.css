@@ -1,3 +1,7 @@
 body {
   background-color: #fdffff;
 }
+
+.mdl-navigation__link {
+  color: red;
+}

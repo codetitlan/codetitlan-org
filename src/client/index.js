@@ -1,13 +1,13 @@
 // @flow
 // import runtime from 'serviceworker-webpack-plugin/lib/runtime';
-import newLoop from './app';
+import App from './app';
 // import { getRootElement } from './app/helpers/dom-helpers';
 import { getRootElement, clearRootElement } from './app/helpers/dom-helpers';
 
 // getRootElement();
 const rootElement = getRootElement();
 
-const loop = newLoop('#root');
+const loop = App('#root');
 loop();
 
 if (module.hot) {

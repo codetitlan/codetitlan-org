@@ -1,7 +1,6 @@
 /** @jsx html */
 // @flow
 import { html } from 'snabbdom-jsx';
-import { div, span, input } from '@cycle/dom';
 
 function intent(sources) {
   const domSource = sources.DOM;
