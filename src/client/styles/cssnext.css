@@ -5,3 +5,8 @@ body {
 .mdl-navigation__link {
   color: red;
 }
+
+.app-container {
+  height: 3000px;
+  background: linear-gradient(rgba(black ,0) 0%, rgba(black, .65) 100%)
+}
