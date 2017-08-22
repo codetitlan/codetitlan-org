@@ -15,23 +15,26 @@ export default function makeScrollDriver(options: {duration: number, element: HT
       });
     };
 
-    const sinkListener = {
+    const listener = {
       next: (offsetTop: number) => {
         scrollTo(options.element, offsetTop, options.duration);
       },
     };
 
-    const producer = xs.create({
-      start(listener) {
-        this.subscriptor = () => listener.next(`${window.scrollY}px`);
-        window.addEventListener('scroll', this.subscriptor);
+    const producer = {
+      start(_listener) {
+        this.eventHandler = () => _listener.next(`${window.scrollY}px`);
+        window.addEventListener('scroll', this.eventHandler);
       },
       stop() {
-        window.removeEventListener('scroll', this.subscriptor);
+        window.removeEventListener('scroll', this.eventHandler);
       },
-    });
+    };
 
-    sink$.addListener(sinkListener);
-    return adapt(producer);
+    sink$.addListener(listener);
+    const stream$ = adapt(xs.create(producer));
+
+    
+    return stream$;
   };
 }
