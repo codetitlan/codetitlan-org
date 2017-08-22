@@ -14,19 +14,23 @@ export default function makeScrollDriver(options: {duration: number, element: HT
       });
     };
 
-    sink$.addListener({
+    const listener = {
       next: (offsetTop: number) => {
         scrollTo(options.element, offsetTop, options.duration);
       },
-    });
+    };
 
-    return xs.create({
-      start(listener) {
-        window.addEventListener('scroll', () => listener.next(`${window.scrollY}px`));
+    const producer = {
+      start(_listener) {
+        this.eventHandler = () => _listener.next(`${window.scrollY}px`);
+        window.addEventListener('scroll', this.eventHandler);
       },
       stop() {
-        window.removeEventListener('scroll');
+        window.removeEventListener('scroll', this.eventHandler);
       },
-    });
+    };
+
+    sink$.addListener(listener);
+    return xs.create(producer);
   };
 }

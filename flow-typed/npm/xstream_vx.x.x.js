@@ -13,9 +13,9 @@
  * https://github.com/flowtype/flow-typed
  */
 
-declare module 'xstream' {
-  declare module.exports: any;
-}
+ declare module 'xstream' {
+   declare module.exports: any;
+ }
 
 /**
  * We include stubs for each file inside this npm package in case you need to
