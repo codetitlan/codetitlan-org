@@ -1,5 +1,6 @@
 // @flow
 import xs from 'xstream';
+import { adapt } from '@cycle/run/lib/adapt';
 
 export default function makeScrollDriver(options: {duration: number, element: HTMLElement}) {
   return function ScrollDriver(sink$: any) {
@@ -14,19 +15,23 @@ export default function makeScrollDriver(options: {duration: number, element: HT
       });
     };
 
-    sink$.addListener({
+    const sinkListener = {
       next: (offsetTop: number) => {
         scrollTo(options.element, offsetTop, options.duration);
       },
-    });
+    };
 
-    return xs.create({
+    const producer = xs.create({
       start(listener) {
-        window.addEventListener('scroll', () => listener.next(`${window.scrollY}px`));
+        this.subscriptor = () => listener.next(`${window.scrollY}px`);
+        window.addEventListener('scroll', this.subscriptor);
       },
       stop() {
-        window.removeEventListener('scroll');
+        window.removeEventListener('scroll', this.subscriptor);
       },
     });
+
+    sink$.addListener(sinkListener);
+    return adapt(producer);
   };
 }
