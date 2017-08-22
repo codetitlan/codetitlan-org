@@ -6,7 +6,6 @@ import injectStyles from '../../helpers/ce-helpers/injectStyles';
 import styles from './styles.scss';
 
 export default class WcmdlButton extends HTMLElement {
-
   name: string;
   icon: string;
   accent: boolean;
