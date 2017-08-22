@@ -2,6 +2,7 @@
 // @flow
 import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';
+import makeScrollDriver from './gold/drivers/scroll';
 import AppContainer from './app-container';
 import WcmdlButton from './wood/wcmdl-button';
 
@@ -13,6 +14,9 @@ export default function App(selector: string) {
   return () => {
     run(AppContainer, {
       DOM: makeDOMDriver(selector),
+      Scroll: makeScrollDriver(
+        { duration: 200, element: document.getElementsByTagName('body')[0] },
+      ),
     });
   };
 }

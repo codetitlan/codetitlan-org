@@ -8,9 +8,15 @@ import MasterLayout from '../iron/master-layout';
 
 function instantiateComp(component, id, sources, props?) {
   const compProps = xs.of(props || {});
-  const compSources = { DOM: sources.DOM, props: compProps };
+  const compSources = { DOM: sources.DOM, Scroll: sources.Scroll, props: compProps };
 
   return isolate(component, id)(compSources);
+}
+
+function view(state$) {
+  return state$.map(masterLayoutVdom => div('.app-container', [
+    masterLayoutVdom,
+  ]));
 }
 
 export default function AppContainer(sources) {
@@ -22,10 +28,7 @@ export default function AppContainer(sources) {
 
   const masterLayoutVdom$ = masterLayout.DOM;
 
-  const vdom$ = masterLayoutVdom$
-    .map(masterLayoutVdom => div('.app-container', [
-      masterLayoutVdom,
-    ]));
+  const vdom$ = view(masterLayoutVdom$);
 
   return {
     DOM: vdom$,
