@@ -4,24 +4,26 @@ import { html } from 'snabbdom-jsx';
 
 function intent(sources) {
   return {
-    scrollUpdate$: sources.Scroll.startWith('yolo'),
-    scrollDownClick$: sources.DOM.select('.scroll-down-button')
-      .events('click'),
+    scrollUpdate$: sources.Scroll.startWith(0),
+    newClick$: sources.DOM.select('.scroll-down-button').events('click'),
   };
 }
 
 function model(actions) {
+  const scrollPosition$ = actions.scrollUpdate$;
+  const click$ = actions.newClick$;
   return {
-    scrollPosition$: actions.scrollUpdate$,
-    scrollDownClick$: actions.scrollDownClick$.mapTo(600),
+    scrollPosition$,
+    scrollDownClick$: click$.mapTo(500),
+    log$: click$.map(val => val.target),
   };
 }
 
 function view(state$) {
   return state$.scrollPosition$.map(value => (
     <div className="scroll-display">
-      <button className="scroll-down-button">Scroll down</button>
       <span>{value}</span>
+      <button className="scroll-down-button">Scroll down</button>
     </div>
   ));
 }
@@ -31,5 +33,6 @@ export default function MasterLayout(sources) {
   return {
     DOM: view(state$),
     Scroll: state$.scrollDownClick$,
+    log: state$.log$,
   };
 }

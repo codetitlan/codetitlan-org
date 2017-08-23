@@ -30,9 +30,11 @@ export default function AppContainer(sources) {
 
   const vdom$ = view(masterLayoutVdom$);
   const scroll$ = masterLayout.Scroll;
+  const log$ = masterLayout.log;
 
   return {
     DOM: vdom$,
     Scroll: scroll$,
+    log: log$,
   };
 }

@@ -25,7 +25,7 @@ export default function makeScrollDriver(options: {duration: number, element: HT
 
     const producer = {
       start(_listener) {
-        this.eventHandler = () => _listener.next(`${window.scrollY}px`);
+        this.eventHandler = () => _listener.next(Number(window.scrollY));
         window.addEventListener('scroll', this.eventHandler);
       },
       stop() {

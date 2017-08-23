@@ -17,6 +17,7 @@ export default function App(selector: string) {
       Scroll: makeScrollDriver(
         { duration: 200, element: document.getElementsByTagName('body')[0] },
       ),
+      log: (msg$) => { msg$.addListener({ next: msg => console.log(msg) }); },
     });
   };
 }
