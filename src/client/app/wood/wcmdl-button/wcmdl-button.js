@@ -2,7 +2,7 @@
 import Hammer from 'hammerjs';
 import componentHandler from 'material-design-lite/material';
 
-import injectStyles from '../../helpers/ce-helpers/injectStyles';
+import injectStyles from '../../gold/helpers/ce-helpers/injectStyles';
 import styles from './styles.scss';
 
 export default class WcmdlButton extends HTMLElement {
