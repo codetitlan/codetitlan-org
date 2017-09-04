@@ -1,8 +1,14 @@
 /** @jsx html */
 // @flow-
+import xs from 'xstream';
 import { html } from 'snabbdom-jsx';
+import RsmButton from '../../wood/rsm-button';
 
 function intent(sources) {
+  const rsmButton = RsmButton({ DOM: sources.DOM, props: xs.of({ text: 'Click me dude' }) });
+  const rsmButtonVdom$ = rsmButton.DOM;
+  const rsmButtonClick$ = rsmButton.click$;
+
   return {
     scrollUpdate$: sources.Scroll.startWith(0),
     newClick$: sources.DOM.select('.scroll-down-button').events('click'),

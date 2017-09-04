@@ -2,7 +2,7 @@
 // import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 import App from './app';
 // import { getRootElement } from './app/helpers/dom-helpers';
-import { getRootElement, clearRootElement } from './app/helpers/dom-helpers';
+import { getRootElement, clearRootElement } from './app/gold/helpers/dom-helpers';
 
 // getRootElement();
 const rootElement = getRootElement();
