@@ -33,7 +33,6 @@ export default function makeScrollDriver(options: {duration: number, element: HT
       },
     };
 
-
     return adapt(xs.create(producer));
   };
 }

@@ -6,11 +6,8 @@ import isolate from '@cycle/isolate';
 import { div } from '@cycle/dom';
 import MasterLayout from '../iron/master-layout';
 
-function instantiateComp(component, id, sources, props?) {
-  const compProps = xs.of(props || {});
-  const compSources = { DOM: sources.DOM, Scroll: sources.Scroll, props: compProps };
-
-  return isolate(component, id)(compSources);
+function configureComponent(component, id, sources, props?) {
+  return isolate(component, id)({ ...sources, props: xs.of(props || {}) });
 }
 
 function view(state$) {
@@ -20,7 +17,7 @@ function view(state$) {
 }
 
 export default function AppContainer(sources) {
-  const masterLayout = instantiateComp(
+  const masterLayout = configureComponent(
     MasterLayout,
     'master-layout',
     sources,
