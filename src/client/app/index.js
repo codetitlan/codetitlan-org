@@ -8,7 +8,18 @@ import AppContainer from './app-container';
 import WcmdlButton from './wood/wcmdl-button';
 
 if (!customElements.get('wcmdl-button')) {
-  customElements.define('wcmdl-button', WcmdlButton);
+  customElements.define(WcmdlButton.is, WcmdlButton);
+}
+
+export function otherMakeDrivers(selector: string) {
+  return {
+    DOM: makeDOMDriver(selector),
+    HTTP: makeHTTPDriver(),
+    Scroll: makeScrollDriver(
+      { duration: 400, element: document.getElementsByTagName('body')[0] },
+    ),
+    log: (msg$: any) => { msg$.addListener({ next: msg => console.log(msg) }); },
+  };
 }
 
 export default function App(selector: string) {

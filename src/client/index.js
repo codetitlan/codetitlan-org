@@ -4,10 +4,9 @@ import App from './app';
 import { getRootElement } from './app/gold/helpers/dom-helpers';
 // import { getRootElement, clearRootElement } from './app/helpers/dom-helpers';
 
-getRootElement();
-// const rootElement = getRootElement();
+const rootElement = getRootElement();
 
-const loop = App('#root');
+const loop = App(`#${rootElement.id}`);
 loop();
 
 if (module.hot) {

@@ -24,6 +24,8 @@ export default class WcmdlButton extends HTMLElement {
   BOOLEAN_PROPERTIES = ['accent', 'colored', 'fab', 'mini', 'primary', 'raised', 'ripple'];
   STRING_PROPERTIES = ['name', 'icon'];
 
+  static get is() { return 'wcmdl-button'; }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
