@@ -2,7 +2,7 @@
 import Hammer from 'hammerjs';
 import componentHandler from 'material-design-lite/material';
 
-import injectStyles from '../../iron/helpers/ce-helpers/injectStyles';
+import injectStyles from '../../redstone/helpers/custom-elements/injectStyles';
 import styles from './styles.scss';
 
 export default class WcmdlButton extends HTMLElement {

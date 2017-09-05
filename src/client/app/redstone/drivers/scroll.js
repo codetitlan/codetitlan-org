@@ -30,13 +30,12 @@ export default function makeScrollDriver(options: {duration: number, element?: H
       start(_listener) {
         this.eventHandler = () => _listener.next(Number(window.scrollY));
         window.addEventListener('scroll', this.eventHandler);
-        // this.eventHandler();
       },
       stop() {
         window.removeEventListener('scroll', this.eventHandler);
       },
     };
 
-    return adapt(xs.createWithMemory(producer));
+    return adapt(xs.createWithMemory(producer).startWith(window.scrollY));
   };
 }

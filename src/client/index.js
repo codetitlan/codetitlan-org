@@ -1,8 +1,8 @@
 // @flow
 // import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 import App from './app';
-import { getRootElement } from './app/iron/helpers/dom-helpers';
-// import { getRootElement, clearRootElement } from './app/helpers/dom-helpers';
+// import { getRootElement } from './app/redstone/helpers/dom-helpers';
+import { getRootElement, clearRootElement } from './app/redstone/helpers/dom';
 
 const rootElement = getRootElement();
 
@@ -11,7 +11,7 @@ loop();
 
 if (module.hot) {
   module.hot.accept();
-  // module.hot.dispose(clearRootElement(rootElement));
+  module.hot.dispose(clearRootElement(rootElement));
 }
 
 // if ('serviceWorker' in navigator) {

@@ -1,5 +1,4 @@
 // @flow
-
 export function clearRootElement(rootElement: HTMLElement) {
   return () => {
     if (!document.body) throw new Error('Unexpectedly missing a <body> tag');
@@ -15,3 +14,15 @@ export function getRootElement() {
   document.body.innerHTML = ''; //eslint-disable-line
   return document.body.appendChild(rootElement);
 }
+
+export function browserDetection() {
+  return {
+    // Firefox 1.0+
+    isFirefox: window.InstallTrigger && typeof window.InstallTrigger !== 'undefined',
+    // Edge 20+
+    isEdge: !(document.documentMode) && !!window.StyleMedia,
+    // Chrome 1+
+    isChrome: !!window.chrome && !!window.chrome.webstore,
+  };
+}
+console.log(browserDetection());

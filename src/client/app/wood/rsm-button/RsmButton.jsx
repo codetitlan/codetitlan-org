@@ -3,7 +3,7 @@
 import { html } from 'snabbdom-jsx';
 
 export default function RsmButton(sources) {
-  const click$ = sources.DOM.select('.rsm-button').events('click');
+  const click$ = sources.DOM.select('button').events('click');
 
   const props$ = sources.props;
 

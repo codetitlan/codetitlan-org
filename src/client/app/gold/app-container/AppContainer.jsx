@@ -1,7 +1,7 @@
 /** @jsx html */
 // @flow-
 import { div } from '@cycle/dom';
-import { isolateGenericComponent } from '../../iron/helpers/cycle-components';
+import { isolateGenericComponent } from '../../redstone/helpers/cycle-components';
 import MasterLayout from '../master-layout';
 
 function view(state$) {
