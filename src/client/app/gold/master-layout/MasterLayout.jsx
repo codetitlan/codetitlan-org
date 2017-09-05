@@ -7,14 +7,13 @@ import RsmButton from '../../wood/rsm-button';
 function intent(sources, scrollButtonClick$) {
   return {
     scrollUpdate$: sources.Scroll.startWith(0),
-    wcmdlClick$: sources.DOM.select('wcmdl-button').events('click'),
     newClick$: scrollButtonClick$,
   };
 }
 
 function model(actions) {
   const scrollPosition$ = actions.scrollUpdate$;
-  const click$ = xs.merge(actions.wcmdlClick$, actions.newClick$);
+  const click$ = actions.newClick$;
   return {
     scrollPosition$,
     scrollDownClick$: click$
@@ -31,7 +30,6 @@ function view(state$, scrollButtonVdom$) {
       <div className="scroll-display">
         <span>{scrollPosition}</span>
         {scrollButtonVdom}
-        <wcmdl-button attrs-primary attrs-ripple attrs-colored>+200</wcmdl-button>
       </div>
     ));
 }

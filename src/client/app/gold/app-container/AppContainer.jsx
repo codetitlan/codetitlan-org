@@ -1,14 +1,8 @@
 /** @jsx html */
 // @flow-
-import xs from 'xstream';
-import isolate from '@cycle/isolate';
-// import { html } from 'snabbdom-jsx';
 import { div } from '@cycle/dom';
-import MasterLayout from '../iron/master-layout';
-
-function configureComponent(component, id, sources, props?) {
-  return isolate(component, id)({ ...sources, props: xs.of(props || {}) });
-}
+import { isolateGenericComponent } from '../../iron/helpers/cycle-components';
+import MasterLayout from '../master-layout';
 
 function view(state$) {
   return state$.map(masterLayoutVdom => div('.app-container', [
@@ -17,7 +11,7 @@ function view(state$) {
 }
 
 export default function AppContainer(sources) {
-  const masterLayout = configureComponent(
+  const masterLayout = isolateGenericComponent(
     MasterLayout,
     'master-layout',
     sources,

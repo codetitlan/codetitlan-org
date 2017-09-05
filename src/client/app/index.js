@@ -3,8 +3,8 @@
 import { run } from '@cycle/run';
 import { makeDOMDriver } from '@cycle/dom';
 import { makeHTTPDriver } from '@cycle/http';
-import makeScrollDriver from './gold/drivers/scroll';
-import AppContainer from './app-container';
+import makeScrollDriver from './iron/drivers/scroll';
+import AppContainer from './gold/app-container';
 import registerCustomElements from './registerCustomElements';
 
 registerCustomElements();
