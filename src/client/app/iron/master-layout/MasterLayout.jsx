@@ -16,8 +16,11 @@ function model(actions) {
   const click$ = actions.newClick$;
   return {
     scrollPosition$,
-    scrollDownClick$: click$.mapTo(500),
-    log$: click$.map(clickEvt => clickEvt),
+    scrollDownClick$: click$
+      .map(() => scrollPosition$.take(1))
+      .flatten()
+      .map(e => e + 200),
+    log$: click$,
   };
 }
 
@@ -34,16 +37,25 @@ function view(state$, scrollButtonVdom$) {
 export default function MasterLayout(sources) {
   const rsmButton = RsmButton({
     DOM: sources.DOM,
-    props: xs.of({ text: 'Click me dude', className: 'scroll-down-button' }),
+    props: xs.of({
+      text: 'Increase 200',
+      className: 'scroll-down-button',
+    }),
   });
   const scrollButtonClick$ = rsmButton.click$;
   const scrollButtonVdom$ = rsmButton.DOM;
 
+  scrollButtonClick$.addListener((eve) => {
+    console.log('yoloman', eve);
+    return 'yoloman';
+  });
+
   const actions = intent(sources, scrollButtonClick$);
   const state$ = model(actions);
+  const vdom$ = view(state$, scrollButtonVdom$);
 
   return {
-    DOM: view(state$, scrollButtonVdom$),
+    DOM: vdom$,
     Scroll: state$.scrollDownClick$,
     log: state$.log$,
   };
