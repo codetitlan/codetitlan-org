@@ -19,7 +19,6 @@ body {
   right: 0;
 }
 
-.slide {
-  height: 400px;
-  min-height: 400px;
+.basic-slide {
+  height: 600px;
 }

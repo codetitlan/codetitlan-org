@@ -25,4 +25,3 @@ export function browserDetection() {
     isChrome: !!window.chrome && !!window.chrome.webstore,
   };
 }
-console.log(browserDetection());

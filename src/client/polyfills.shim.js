@@ -1,1 +1,1 @@
-require('webcomponentsjs/full')();
+// import 'webcomponentsjs/full';
