@@ -19,6 +19,16 @@ body {
   right: 0;
 }
 
+.console-wrap {
+  position: fixed;
+  width: 100%;
+  padding: 10px;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+}
+
 .basic-slide {
   height: 600px;
 }

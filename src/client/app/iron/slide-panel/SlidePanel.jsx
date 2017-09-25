@@ -3,7 +3,7 @@
 import { html } from 'snabbdom-jsx';
 
 export default function SlidePanel(sources) {
-  const click$ = sources.DOM.select('.slide-panel').events('click');
+  const click$ = sources.DOM.select('.slide-panel').events('upstream-channel');
 
   const props$ = sources.props;
 
