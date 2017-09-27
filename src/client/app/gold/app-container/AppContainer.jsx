@@ -1,41 +1,30 @@
 /** @jsx html */
 // @flow-
-import xs from 'xstream';
+// import xs from 'xstream';
 import { div } from '@cycle/dom';
-import { isolateGenericComponent } from '../../redstone/helpers/cycle-components';
+import { isolateExplicit } from '../../redstone/helpers/cycle-components';
 import MasterLayout from '../master-layout';
-import BasicSlide from '../../iron/basic-slide';
 // import SlidePanel from '../../iron/slide-panel';
 
-function buildSlides(slides, sources) {
-  return slides.map((item) => {
-    console.log('item', item);
-    const slide = BasicSlide({
-      ...sources,
-      props: xs.of({ className: `slide-${item.title}`, contents: item.message }),
-    });
-    return { vdom$: slide.DOM };
-  });
-}
-
 function intent(sources) {
-  const masterLayout = isolateGenericComponent(
+  // const slides$ = sources.HTTP
+  //   .select('slides')
+  //   .flatten()
+  //   .map(resp => resp.body.slides)
+  //   .debug('on intent');
+
+  const masterLayout = isolateExplicit(
     MasterLayout,
     'master-layout',
     sources,
+    { heading: 'Foobar' },
   );
   const masterLayoutVdom$ = masterLayout.DOM;
   const masterLayoutScroll$ = masterLayout.Scroll;
   const masterLayoutLog$ = masterLayout.Log;
 
-  const slidesResponse$ = sources.HTTP
-    .select('slides')
-    .flatten()
-    .map(res => buildSlides(res.body.slides, sources));
-
   return {
     actions: {
-      slidesResponse$,
       masterLayoutScroll$,
       masterLayoutLog$,
     },
@@ -46,40 +35,35 @@ function intent(sources) {
 }
 
 function model({ actions, vdoms }) {
-  const request$ = xs.of({
-    category: 'slides',
-    headers: {
-      'secret-key': '$2a$10$GZwoEk/XNb/kw1YWkBw4ROCKnYp8CVOw/A9D9Yki4TiSufJzbBkmC',
-    },
-    url: '//jsonbin.io/b/59b879521da63e05fbc64ffb', // GET method by default
-  });
+  // const request$ = xs.of({
+  //   category: 'slides',
+  //   headers: {
+  //     'secret-key': '$2a$10$GZwoEk/XNb/kw1YWkBw4ROCKnYp8CVOw/A9D9Yki4TiSufJzbBkmC',
+  //   },
+  //   url: '//jsonbin.io/b/59c943c2bbab4566375b751f', // GET method by default
+  // });
   return {
     ...vdoms,
-    request$,
-    slide$: actions.slidesResponse$
-      .debug(yama => console.log('yama', yama)),
+    // request$,
     log$: actions.masterLayoutLog$,
     scroll$: actions.masterLayoutScroll$,
   };
 }
 
-function view({ masterLayoutVdom$, slide$ }) {
-  return xs.combine(masterLayoutVdom$, slide$)
-    .map(([masterLayoutVdom, slides]) => div('.app-container', [
+function view({ masterLayoutVdom$ }) {
+  return masterLayoutVdom$
+    .map(masterLayoutVdom => div('.app-container', [
       masterLayoutVdom,
-      slides.map(slide => slide.vdom$),
-      div('.console-wrap', [...slides]),
+      div('.console-wrap', ['yolo']),
     ]));
 }
 
-export default function AppContainer(sources) {
+export default function (sources) {
   const state = model(intent(sources));
-  const vdom$ = view(state);
-
   return {
-    DOM: vdom$,
+    DOM: view(state),
     Scroll: state.scroll$,
     Log: state.log$,
-    HTTP: state.request$,
+    // HTTP: state.request$,
   };
 }

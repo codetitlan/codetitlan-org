@@ -9,7 +9,6 @@ export default function makeScrollDriver(options: {duration: number, element?: H
       if (!element) return;
       const diff = pos - element.scrollTop;
       const perTick = (diff / duration) * 10;
-
       setTimeout(() => {
         if (!element) return;
         element.scrollTop += perTick; // eslint-disable-line

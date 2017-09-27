@@ -3,9 +3,6 @@
 import xs from 'xstream';
 import { html } from 'snabbdom-jsx';
 import RsmButton from '../../wood/rsm-button';
-import SlidePanel from '../../iron/slide-panel';
-import BasicSlide from '../../iron/basic-slide';
-// import { isolateGenericComponent } from '../../redstone/helpers/cycle-components';
 
 function getScrollButton(sources) {
   const scrollBtn = RsmButton({
@@ -13,74 +10,70 @@ function getScrollButton(sources) {
     props: xs.of({ text: '+200', className: 'scroll-down-button' }),
   });
   return {
-    vdom$: scrollBtn.DOM,
+    DOM: scrollBtn.DOM,
     click$: scrollBtn.click$,
   };
 }
 
-function makeSlides(sources) {
-  return ['ennie', 'mennie', 'miny', 'moe'].map((item) => {
-    const slide = BasicSlide({
-      ...sources,
-      props: xs.of({ className: `slide-${item}`, contents: item }),
-    });
-    return { vdom$: slide.DOM };
-  });
-}
-
-function panelMakerMaker(sources) {
-  return (slide, key) => SlidePanel({
-    DOM: sources.DOM,
-    props: xs.of({ className: `yolo-n${key}`, content$: slide.vdom$ }),
-  }).DOM;
-}
-
 function intent(sources) {
   const scrollButton = getScrollButton(sources);
-  const panelsVdom$ = xs.combine(
-    ...makeSlides(sources).map(panelMakerMaker(sources)),
-  );
-
   return {
     actions: {
       scrollUpdate$: sources.Scroll.startWith(0),
       newClick$: scrollButton.click$,
-      mcClick$: sources.DOM.select('.slide-panel').events('click'),
+      newError$: sources.DOM.events('error'),
     },
-    vdoms: {
-      scrollButtonVdom$: scrollButton.vdom$,
-      panelsVdom$,
+    components: {
+      scrollButton,
     },
   };
 }
 
-function model({ actions, vdoms }) {
+function model({ actions, components }) {
   const scrollPosition$ = actions.scrollUpdate$;
   const click$ = actions.newClick$;
+  const scrollButtonVdom$ = components.scrollButton.DOM;
   return {
-    ...vdoms,
+    scrollButtonVdom$,
     scrollPosition$,
     scrollDownClick$: click$.map(() => scrollPosition$.take(1)).flatten().map(e => e + 200),
-    log$: actions.mcClick$.map(e => e.ownerTarget.getBoundingClientRect().top),
+    log$: actions.newError$,
   };
 }
 
-function view(state) {
-  return xs.combine(state.scrollPosition$, state.scrollButtonVdom$, state.panelsVdom$)
-    .map(([scrollPosition, scrollButton, panels]) => (
+function view({ scrollPosition$, scrollButtonVdom$ }) {
+  return xs.combine(scrollPosition$, scrollButtonVdom$)
+    .map(([scrollPosition, scrollButton]) => (
       <div className="mainContainer">
+        <header>
+          <hgroup>
+            <h1>Header</h1>
+            <h2>SubHeader</h2>
+          </hgroup>
+        </header>
+        <nav>
+          <ul>
+            <li><a href="/somewhere">Somewhere</a></li>
+            <li><a href="/elsewhere">Elsewhere</a></li>
+          </ul>
+        </nav>
+        <section className="panels">
+          <article>
+            some stuff goes here
+          </article>
+        </section>
+        <aside>
+          <section>aside</section>
+        </aside>
         <div className="scroll-display">
           <span>{scrollPosition}</span>
           {scrollButton}
         </div>
-        <section className="panels">
-          {panels}
-        </section>
       </div>
     ));
 }
 
-export default function MasterLayout(sources) {
+export default function (sources) {
   const state = model(intent(sources));
   return {
     DOM: view(state),

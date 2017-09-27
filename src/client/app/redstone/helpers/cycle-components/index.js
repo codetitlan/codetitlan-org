@@ -1,3 +1,6 @@
-import isolateGenericComponent from './isolateGenericComponent';
+import { isolateExplicit, isolateImplicit } from './isolateGenericComponent';
 
-export { isolateGenericComponent }; // eslint-disable-line
+export {
+  isolateExplicit,
+  isolateImplicit,
+}; // eslint-disable-line
