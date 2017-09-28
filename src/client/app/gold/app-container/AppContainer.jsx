@@ -4,29 +4,29 @@
 import { div } from '@cycle/dom';
 import { isolateExplicit } from '../../redstone/helpers/cycle-components';
 import MasterLayout from '../master-layout';
+import SlidesPanel from '../../iron/slides-panel';
 // import SlidePanel from '../../iron/slide-panel';
 
 function intent(sources) {
-  // const slides$ = sources.HTTP
-  //   .select('slides')
-  //   .flatten()
-  //   .map(resp => resp.body.slides)
-  //   .debug('on intent');
+  const slidesPanel = SlidesPanel(sources);
 
   const masterLayout = isolateExplicit(
     MasterLayout,
     'master-layout',
     sources,
-    { heading: 'Foobar' },
+    { heading: 'Foobar', components: { slidesPanel } },
   );
+
   const masterLayoutVdom$ = masterLayout.DOM;
   const masterLayoutScroll$ = masterLayout.Scroll;
   const masterLayoutLog$ = masterLayout.Log;
+  const masterLayoutRequests$ = masterLayout.HTTP;
 
   return {
     actions: {
       masterLayoutScroll$,
       masterLayoutLog$,
+      masterLayoutRequests$,
     },
     vdoms: {
       masterLayoutVdom$,
@@ -35,16 +35,9 @@ function intent(sources) {
 }
 
 function model({ actions, vdoms }) {
-  // const request$ = xs.of({
-  //   category: 'slides',
-  //   headers: {
-  //     'secret-key': '$2a$10$GZwoEk/XNb/kw1YWkBw4ROCKnYp8CVOw/A9D9Yki4TiSufJzbBkmC',
-  //   },
-  //   url: '//jsonbin.io/b/59c943c2bbab4566375b751f', // GET method by default
-  // });
   return {
     ...vdoms,
-    // request$,
+    request$: actions.masterLayoutRequests$,
     log$: actions.masterLayoutLog$,
     scroll$: actions.masterLayoutScroll$,
   };
@@ -64,6 +57,6 @@ export default function (sources) {
     DOM: view(state),
     Scroll: state.scroll$,
     Log: state.log$,
-    // HTTP: state.request$,
+    HTTP: state.request$,
   };
 }

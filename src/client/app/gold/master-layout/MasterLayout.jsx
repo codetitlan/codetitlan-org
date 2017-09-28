@@ -25,6 +25,7 @@ function intent(sources) {
     },
     components: {
       scrollButton,
+      slidesPanel: sources.props.map(props => props.components.slidesPanel),
     },
   };
 }
@@ -36,14 +37,16 @@ function model({ actions, components }) {
   return {
     scrollButtonVdom$,
     scrollPosition$,
+    slidesPanelVdom$: components.slidesPanel.map(sp => sp.DOM).flatten(),
+    upstreamRequests$: components.slidesPanel.map(sp => sp.HTTP).flatten().debug('on upstreamRequests'),
     scrollDownClick$: click$.map(() => scrollPosition$.take(1)).flatten().map(e => e + 200),
     log$: actions.newError$,
   };
 }
 
-function view({ scrollPosition$, scrollButtonVdom$ }) {
-  return xs.combine(scrollPosition$, scrollButtonVdom$)
-    .map(([scrollPosition, scrollButton]) => (
+function view({ scrollPosition$, scrollButtonVdom$, slidesPanelVdom$ }) {
+  return xs.combine(scrollPosition$, scrollButtonVdom$, slidesPanelVdom$)
+    .map(([scrollPosition, scrollButton, slidesPanel]) => (
       <div className="mainContainer">
         <header>
           <hgroup>
@@ -57,11 +60,7 @@ function view({ scrollPosition$, scrollButtonVdom$ }) {
             <li><a href="/elsewhere">Elsewhere</a></li>
           </ul>
         </nav>
-        <section className="panels">
-          <article>
-            some stuff goes here
-          </article>
-        </section>
+        {slidesPanel}
         <aside>
           <section>aside</section>
         </aside>
@@ -79,5 +78,6 @@ export default function (sources) {
     DOM: view(state),
     Scroll: xs.merge(state.scrollDownClick$, state.log$),
     Log: state.log$,
+    HTTP: state.upstreamRequests$,
   };
 }
