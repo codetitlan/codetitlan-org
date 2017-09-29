@@ -25,7 +25,7 @@ function intent(sources) {
     },
     components: {
       scrollButton,
-      slidesPanel: sources.props.map(props => props.components.slidesPanel),
+      mainContent: sources.props.map(props => props.components.mainContent),
     },
   };
 }
@@ -37,8 +37,8 @@ function model({ actions, components }) {
   return {
     scrollButtonVdom$,
     scrollPosition$,
-    slidesPanelVdom$: components.slidesPanel.map(sp => sp.DOM).flatten(),
-    upstreamRequests$: components.slidesPanel.map(sp => sp.HTTP).flatten().debug('on upstreamRequests'),
+    slidesPanelVdom$: components.mainContent.map(sp => sp.DOM).flatten(),
+    upstreamRequests$: components.mainContent.map(sp => sp.HTTP).flatten(),
     scrollDownClick$: click$.map(() => scrollPosition$.take(1)).flatten().map(e => e + 200),
     log$: actions.newError$,
   };
@@ -46,12 +46,12 @@ function model({ actions, components }) {
 
 function view({ scrollPosition$, scrollButtonVdom$, slidesPanelVdom$ }) {
   return xs.combine(scrollPosition$, scrollButtonVdom$, slidesPanelVdom$)
-    .map(([scrollPosition, scrollButton, slidesPanel]) => (
+    .map(([scrollPosition, scrollButton, mainContent]) => (
       <div className="mainContainer">
         <header>
           <hgroup>
-            <h1>Header</h1>
-            <h2>SubHeader</h2>
+            {/* <h1>Header</h1>
+            <h2>SubHeader</h2> */}
           </hgroup>
         </header>
         <nav>
@@ -60,7 +60,7 @@ function view({ scrollPosition$, scrollButtonVdom$, slidesPanelVdom$ }) {
             <li><a href="/elsewhere">Elsewhere</a></li>
           </ul>
         </nav>
-        {slidesPanel}
+        {mainContent}
         <aside>
           <section>aside</section>
         </aside>

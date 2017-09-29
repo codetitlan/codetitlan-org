@@ -1,20 +1,18 @@
 /** @jsx html */
 // @flow-
-// import xs from 'xstream';
 import { div } from '@cycle/dom';
 import { isolateExplicit } from '../../redstone/helpers/cycle-components';
 import MasterLayout from '../master-layout';
 import SlidesPanel from '../../iron/slides-panel';
-// import SlidePanel from '../../iron/slide-panel';
 
 function intent(sources) {
-  const slidesPanel = SlidesPanel(sources);
+  const mainContent = SlidesPanel(sources);
 
   const masterLayout = isolateExplicit(
     MasterLayout,
     'master-layout',
     sources,
-    { heading: 'Foobar', components: { slidesPanel } },
+    { heading: 'Foobar', components: { mainContent } },
   );
 
   const masterLayoutVdom$ = masterLayout.DOM;
