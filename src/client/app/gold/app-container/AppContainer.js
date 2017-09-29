@@ -1,4 +1,3 @@
-/** @jsx html */
 // @flow-
 import { div } from '@cycle/dom';
 import { isolateExplicit } from '../../redstone/helpers/cycle-components';

@@ -68,10 +68,10 @@ function model({ actions, components }) {
 }
 
 function view({ slidePanelVdom$ }) {
-  return slidePanelVdom$
-    .map(slidePanelVdom => (
-      <div>My state is an: {slidePanelVdom}</div>
-    ));
+  return slidePanelVdom$;
+  // .map(slidePanelVdom => (
+  //   <div>{slidePanelVdom}</div>
+  // ));
 }
 
 export default function (sources) {

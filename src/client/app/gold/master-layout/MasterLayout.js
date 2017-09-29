@@ -1,8 +1,7 @@
-/** @jsx html */
 // @flow-
 import xs from 'xstream';
-import { html } from 'snabbdom-jsx';
 import RsmButton from '../../wood/rsm-button';
+import getMarkup from './getMarkup';
 
 function getScrollButton(sources) {
   const scrollBtn = RsmButton({
@@ -46,30 +45,7 @@ function model({ actions, components }) {
 
 function view({ scrollPosition$, scrollButtonVdom$, slidesPanelVdom$ }) {
   return xs.combine(scrollPosition$, scrollButtonVdom$, slidesPanelVdom$)
-    .map(([scrollPosition, scrollButton, mainContent]) => (
-      <div className="mainContainer">
-        <header>
-          <hgroup>
-            {/* <h1>Header</h1>
-            <h2>SubHeader</h2> */}
-          </hgroup>
-        </header>
-        <nav>
-          <ul>
-            <li><a href="/somewhere">Somewhere</a></li>
-            <li><a href="/elsewhere">Elsewhere</a></li>
-          </ul>
-        </nav>
-        {mainContent}
-        <aside>
-          <section>aside</section>
-        </aside>
-        <div className="scroll-display">
-          <span>{scrollPosition}</span>
-          {scrollButton}
-        </div>
-      </div>
-    ));
+    .map(getMarkup);
 }
 
 export default function (sources) {
