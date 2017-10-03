@@ -2,8 +2,8 @@
 // @flow-
 import xs from 'xstream';
 import { html } from 'snabbdom-jsx';
+import BasicSlide from '../../wood/basic-slide';
 import SlidePanel from '../../iron/slide-panel';
-import BasicSlide from '../../iron/basic-slide';
 import { isolateImplicit } from '../../redstone/helpers/cycle-components';
 
 function slideMakerMaker(sources) {
@@ -34,7 +34,7 @@ function panelMakerMaker(sources) {
 }
 
 function intent(sources) {
-  const requestCfg = {
+  const slidesRequest = {
     category: 'slides',
     headers: {
       'secret-key': '$2a$10$GZwoEk/XNb/kw1YWkBw4ROCKnYp8CVOw/A9D9Yki4TiSufJzbBkmC',
@@ -44,7 +44,7 @@ function intent(sources) {
 
   return {
     actions: {
-      newRequest$: xs.of(requestCfg),
+      newRequest$: xs.of(slidesRequest),
     },
     components: {
       slidePanel$: sources.HTTP

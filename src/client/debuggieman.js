@@ -1,25 +1,15 @@
-function* genFromArray(anArray) {
-  for (let i = 0; i < anArray.length; i += 1) {
-    yield anArray[i];
-  }
-}
+// import { fibonacciGen } from './app/redstone/sandie-box/generators';
+import { delayValue, printGenArray } from './app/redstone/sandie-box/asyncs';
 
-function printGenArray(someArray = [1, 2, 3, 4, 5, 6]) {
-  const gen = genFromArray(someArray);
-  let item = gen.next();
-  if (typeof item.done === 'boolean') {
-    while (!item.done) {
-      console.log(item.value);
-      item = gen.next();
-    }
-  }
-}
 
-export async function delayValue(value, delay = 0) {
-  return new Promise(resolve => setTimeout(() => resolve(value), delay));
-}
+export default async function doTheHookyPooky() {
+  // const gen = fibonacciGen();
+  // let cgv = gen.next();
+  // for (let i = 0; i < 20; i += 1) {
+  //   console.log(cgv.value);
+  //   cgv = gen.next();
+  // }
+  // console.log(...fibonacciBase(20));
 
-export async function doTheHookyPooky() {
-  const hookyPooky = 'hookypooky'.split('');
-  return new Promise(resolve => setTimeout(() => resolve(printGenArray(hookyPooky)), 3000));
+  return delayValue(printGenArray('hookypooky'.split('')), 5000);
 }

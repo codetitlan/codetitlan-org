@@ -15,6 +15,9 @@ function getScrollButton(sources) {
 }
 
 function intent(sources) {
+  sources.onion.state$.addListener({
+    next: os => console.log('onion state !', os),
+  });
   const scrollButton = getScrollButton(sources);
   return {
     actions: {

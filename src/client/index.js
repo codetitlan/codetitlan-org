@@ -1,7 +1,7 @@
 // @flow
-import App from './app';
+import { runApp } from './app';
+import doTheHookyPooky from './debuggieman';
 import { getRootElement } from './app/redstone/helpers/dom';
-import { doTheHookyPooky } from './debuggieman';
 
 // First ... do the hooky pooky !
 ((async () => doTheHookyPooky())());
@@ -10,9 +10,9 @@ import { doTheHookyPooky } from './debuggieman';
 const rootElement = getRootElement();
 
 // Run the app
-App(`#${rootElement.id}`)();
+runApp(rootElement);
 
 // Enable HMR
 if (module && module.hot) {
-  module.hot.accept();
+  module.hot.accept('./app');
 }
