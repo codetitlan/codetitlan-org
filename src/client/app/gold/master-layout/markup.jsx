@@ -7,8 +7,8 @@ export default function ([scrollPosition, scrollButton, mainContent]) {
     <div className="mainContainer">
       <header>
         <hgroup>
-          {/* <h1>Header</h1>
-          <h2>SubHeader</h2> */}
+          <h1>Header</h1>
+          <h2>SubHeader</h2>
         </hgroup>
       </header>
       <nav>

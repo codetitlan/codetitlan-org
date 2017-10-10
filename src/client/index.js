@@ -3,14 +3,11 @@ import { runApp } from './app';
 import doTheHookyPooky from './debuggieman';
 import { getRootElement } from './app/redstone/helpers/dom';
 
-// First ... do the hooky pooky !
+// First and foremost... do the hooky pooky !
 ((async () => doTheHookyPooky())());
 
-// Make a root element
-const rootElement = getRootElement();
-
 // Run the app
-runApp(rootElement);
+runApp(getRootElement());
 
 // Enable HMR
 if (module && module.hot) {

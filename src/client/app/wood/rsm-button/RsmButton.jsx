@@ -2,8 +2,8 @@
 // @flow-
 import { html } from 'snabbdom-jsx';
 
-export default function RsmButton(sources) {
-  const click$ = sources.DOM.select('button').events('click');
+export default function (sources) {
+  const clicks$ = sources.DOM.select('button').events('click');
 
   const props$ = sources.props;
 
@@ -14,5 +14,5 @@ export default function RsmButton(sources) {
     >{props.text}</button>
   ));
 
-  return { DOM: vdom$, click$ };
+  return { DOM: vdom$, clicks$ };
 }

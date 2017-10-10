@@ -13,21 +13,17 @@ import AppContainer from './gold/app-container';
 // registerCustomElements();
 
 export default function App(selector: string) {
-  const scrollTarget = 'html';
+  const scrollTarget = document.getElementsByTagName('html')[0];
   const makeDrivers = () => ({
     DOM: makeDOMDriver(selector),
     HTTP: makeHTTPDriver(),
-    Scroll: makeScrollDriver(
-      { duration: 400, element: document.getElementsByTagName(scrollTarget)[0] },
-    ),
-    Log: (msg$) => { msg$.addListener({ next: msg => console.info(msg) }); },
+    Scroll: makeScrollDriver({ duration: 400, element: scrollTarget }),
     Gun: makeGunDriver({ root: 'root', peers: ['http://localhost:3210'] }),
+    Log: (msg$) => { msg$.addListener({ next: msg => console.info(msg) }); },
   });
 
-  const onionWrap = onionify(AppContainer);
-
   return () => {
-    run(onionWrap, makeDrivers());
+    run(onionify(AppContainer), makeDrivers());
   };
 }
 

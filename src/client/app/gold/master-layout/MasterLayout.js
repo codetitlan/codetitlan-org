@@ -1,53 +1,55 @@
 // @flow-
 import xs from 'xstream';
+import { isolateExplicit } from '../../redstone/helpers/cycle-components';
 import RsmButton from '../../wood/rsm-button';
-import getMarkup from './getMarkup';
+import getMarkup from './markup';
 
-function getScrollButton(sources) {
-  const scrollBtn = RsmButton({
-    ...sources,
-    props: xs.of({ text: '+200', className: 'scroll-down-button' }),
-  });
-  return {
-    DOM: scrollBtn.DOM,
-    click$: scrollBtn.click$,
-  };
+function getScrollButton(sources, cid = 'scrollButton') {
+  return isolateExplicit(
+    RsmButton,
+    cid,
+    sources,
+    { text: '+200', className: 'scroll-down-button' },
+  );
 }
 
 function intent(sources) {
-  sources.onion.state$.addListener({
-    next: os => console.log('onion state !', os),
-  });
-  const scrollButton = getScrollButton(sources);
+  const scrollButton = getScrollButton(sources, 'scrollButton1');
   return {
     actions: {
-      scrollUpdate$: sources.Scroll.startWith(0),
-      newClick$: scrollButton.click$,
+      scrollPosition$: sources.onion.state$.map(val => val.scrollPosition),
+      newClick$: scrollButton.clicks$,
       newError$: sources.DOM.events('error'),
     },
     components: {
       scrollButton,
-      mainContent: sources.props.map(props => props.components.mainContent),
+      mainContent: sources.props.map(props => props.content),
     },
   };
 }
 
 function model({ actions, components }) {
-  const scrollPosition$ = actions.scrollUpdate$;
-  const click$ = actions.newClick$;
+  const { newClick$, scrollPosition$ } = actions;
   const scrollButtonVdom$ = components.scrollButton.DOM;
   return {
     scrollButtonVdom$,
     scrollPosition$,
-    slidesPanelVdom$: components.mainContent.map(sp => sp.DOM).flatten(),
-    upstreamRequests$: components.mainContent.map(sp => sp.HTTP).flatten(),
-    scrollDownClick$: click$.map(() => scrollPosition$.take(1)).flatten().map(e => e + 200),
+    mainContentVdom$: components.mainContent
+      .map(mainContent => mainContent.DOM)
+      .flatten(),
+    upstreamRequests$: components.mainContent
+      .map(mainContent => mainContent.HTTP)
+      .flatten(),
+    scrollDownClick$: newClick$
+      .map(() => scrollPosition$.take(1))
+      .flatten()
+      .map(e => e + 200),
     log$: actions.newError$,
   };
 }
 
-function view({ scrollPosition$, scrollButtonVdom$, slidesPanelVdom$ }) {
-  return xs.combine(scrollPosition$, scrollButtonVdom$, slidesPanelVdom$)
+function view({ scrollPosition$, scrollButtonVdom$, mainContentVdom$ }) {
+  return xs.combine(scrollPosition$, scrollButtonVdom$, mainContentVdom$)
     .map(getMarkup);
 }
 
@@ -55,7 +57,7 @@ export default function (sources) {
   const state = model(intent(sources));
   return {
     DOM: view(state),
-    Scroll: xs.merge(state.scrollDownClick$, state.log$),
+    Scroll: state.scrollDownClick$,
     Log: state.log$,
     HTTP: state.upstreamRequests$,
   };

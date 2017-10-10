@@ -2,49 +2,14 @@
 // @flow-
 import xs from 'xstream';
 import { html } from 'snabbdom-jsx';
-import BasicSlide from '../../wood/basic-slide';
-import SlidePanel from '../../iron/slide-panel';
-import { isolateImplicit } from '../../redstone/helpers/cycle-components';
-
-function slideMakerMaker(sources) {
-  return function slideMaker(slides) {
-    return slides.map((slide, key) => isolateImplicit(
-      BasicSlide,
-      sources,
-      {
-        className: `slide-${key}`,
-        contents: (
-          <div>
-            <h4>{slide.title}</h4>
-            <p>{slide.message}</p>
-          </div>
-        ),
-      },
-    ));
-  };
-}
-
-function panelMakerMaker(sources) {
-  return function panelMaker(slides) {
-    return slides.map((slide, key) => SlidePanel({
-      DOM: sources.DOM,
-      props: xs.of({ className: `yolo-n${key}`, content$: slide.DOM }),
-    }));
-  };
-}
+import { slideMakerMaker, panelMakerMaker } from './makers';
 
 function intent(sources) {
-  const slidesRequest = {
-    category: 'slides',
-    headers: {
-      'secret-key': '$2a$10$GZwoEk/XNb/kw1YWkBw4ROCKnYp8CVOw/A9D9Yki4TiSufJzbBkmC',
-    },
-    url: '//jsonbin.io/b/59c943c2bbab4566375b751f', // GET method by default
-  };
+  const { state$ } = sources.onion;
 
   return {
     actions: {
-      newRequest$: xs.of(slidesRequest),
+      newRequest$: state$.map(o => o.requestConfig),
     },
     components: {
       slidePanel$: sources.HTTP
@@ -68,10 +33,11 @@ function model({ actions, components }) {
 }
 
 function view({ slidePanelVdom$ }) {
-  return slidePanelVdom$;
-  // .map(slidePanelVdom => (
-  //   <div>{slidePanelVdom}</div>
-  // ));
+  return slidePanelVdom$.map(slidePanelVdom => (
+    <div className="slidePanel">
+      {slidePanelVdom}
+    </div>
+  ));
 }
 
 export default function (sources) {
