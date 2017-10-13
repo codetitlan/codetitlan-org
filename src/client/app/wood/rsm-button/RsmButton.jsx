@@ -11,7 +11,9 @@ export default function (sources) {
     <button
       className={`rsm-button ${props.className}`}
       value={props.parentData}
-    >{props.text}</button>
+    >
+      {props.text}
+    </button>
   ));
 
   return { DOM: vdom$, clicks$ };

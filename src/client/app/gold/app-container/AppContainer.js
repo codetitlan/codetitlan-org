@@ -41,12 +41,10 @@ function intent(sources) {
 function model({ actions, components }) {
   const { masterLayout } = components;
   const { scrollUpdates$ } = actions;
-  const initReducer$ = xs.of(
-    () => (APP_CONFIG),
-  );
-  const addOneReducer$ = xs.periodic(1000).mapTo(
-    prev => ({ ...prev, count: prev.count + 1 }),
-  );
+  const initReducer$ = xs.of(() => (APP_CONFIG));
+  const addOneReducer$ = xs
+    .periodic(1000)
+    .mapTo(prev => ({ ...prev, count: prev.count + 1 }));
   const scrollPositionReducer$ = scrollUpdates$
     .map(val => prev => ({
       ...prev,

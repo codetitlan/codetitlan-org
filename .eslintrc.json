@@ -2,7 +2,9 @@
   "parser": "babel-eslint",
   "extends": [
     "airbnb",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "prettier",
+    "prettier/flowtype"
   ],
   "parserOptions": {
     "ecmaVersion": 6,
@@ -14,7 +16,8 @@
   },
   "plugins": [
     "flowtype",
-    "jest"
+    "jest",
+    "prettier"
   ],
   "env": {
     "browser": true,
