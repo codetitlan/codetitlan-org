@@ -6,7 +6,6 @@ import { slideMakerMaker, panelMakerMaker } from './makers';
 
 function intent(sources) {
   const { state$ } = sources.onion;
-
   return {
     actions: {
       newRequest$: state$.map(o => o.requestConfig),

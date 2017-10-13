@@ -11,5 +11,5 @@ runApp(getRootElement());
 
 // Enable HMR
 if (module && module.hot) {
-  module.hot.accept('./app');
+  module.hot.accept(['./app', './debuggieman'], async () => doTheHookyPooky());
 }
