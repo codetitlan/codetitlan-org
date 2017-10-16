@@ -33,13 +33,11 @@ function model({ actions, components }) {
 
 function view({ slidePanelVdom$ }) {
   return slidePanelVdom$.map(slidePanelVdom => (
-    <div className="slidePanel">
-      {slidePanelVdom}
-    </div>
+    <div className="slidePanel">{slidePanelVdom}</div>
   ));
 }
 
-export default function (sources) {
+export default function(sources) {
   const state = model(intent(sources));
   return {
     DOM: view(state),

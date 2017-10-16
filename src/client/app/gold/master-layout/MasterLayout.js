@@ -5,12 +5,10 @@ import RsmButton from '../../wood/rsm-button';
 import getMarkup from './markup';
 
 function getScrollButton(sources, cid = 'scrollButton') {
-  return isolateExplicit(
-    RsmButton,
-    cid,
-    sources,
-    { text: '+200', className: 'scroll-down-button' },
-  );
+  return isolateExplicit(RsmButton, cid, sources, {
+    text: '+200',
+    className: 'scroll-down-button',
+  });
 }
 
 function intent(sources) {
@@ -49,11 +47,12 @@ function model({ actions, components }) {
 }
 
 function view({ scrollPosition$, scrollButtonVdom$, mainContentVdom$ }) {
-  return xs.combine(scrollPosition$, scrollButtonVdom$, mainContentVdom$)
+  return xs
+    .combine(scrollPosition$, scrollButtonVdom$, mainContentVdom$)
     .map(getMarkup);
 }
 
-export default function (sources) {
+export default function(sources) {
   const state = model(intent(sources));
   return {
     DOM: view(state),

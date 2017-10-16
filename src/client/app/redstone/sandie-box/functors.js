@@ -5,15 +5,15 @@ function Identity(value) {
     toString: () => `Identity(${value})`,
     [Symbol.iterator]: () => {
       let first = true;
-      return ({
+      return {
         next: () => {
           if (first) {
             first = false;
-            return ({ done: false, value });
+            return { done: false, value };
           }
-          return ({ done: true });
+          return { done: true };
         },
-      });
+      };
     },
   };
 }

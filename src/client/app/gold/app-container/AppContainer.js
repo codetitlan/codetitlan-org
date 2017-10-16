@@ -15,7 +15,8 @@ const APP_CONFIG = {
       category: 'slides',
       url: '//jsonbin.io/b/59c943c2bbab4566375b751f',
       headers: {
-        'secret-key': '$2a$10$GZwoEk/XNb/kw1YWkBw4ROCKnYp8CVOw/A9D9Yki4TiSufJzbBkmC',
+        'secret-key':
+          '$2a$10$GZwoEk/XNb/kw1YWkBw4ROCKnYp8CVOw/A9D9Yki4TiSufJzbBkmC',
       },
     },
   },
@@ -23,12 +24,9 @@ const APP_CONFIG = {
 
 function intent(sources) {
   const slidesPanel = isolateExplicit(SlidesPanel, 'slidesPanel', sources);
-  const masterLayout = isolateExplicit(
-    MasterLayout,
-    'masterLayout',
-    sources,
-    { content: slidesPanel },
-  );
+  const masterLayout = isolateExplicit(MasterLayout, 'masterLayout', sources, {
+    content: slidesPanel,
+  });
   return {
     components: { masterLayout },
     actions: {
@@ -41,18 +39,17 @@ function intent(sources) {
 function model({ actions, components }) {
   const { masterLayout } = components;
   const { scrollUpdates$ } = actions;
-  const initReducer$ = xs.of(() => (APP_CONFIG));
+  const initReducer$ = xs.of(() => APP_CONFIG);
   const addOneReducer$ = xs
     .periodic(1000)
     .mapTo(prev => ({ ...prev, count: prev.count + 1 }));
-  const scrollPositionReducer$ = scrollUpdates$
-    .map(val => prev => ({
-      ...prev,
-      masterLayout: {
-        ...prev.masterLayout,
-        scrollPosition: val,
-      },
-    }));
+  const scrollPositionReducer$ = scrollUpdates$.map(val => prev => ({
+    ...prev,
+    masterLayout: {
+      ...prev.masterLayout,
+      scrollPosition: val,
+    },
+  }));
 
   return {
     masterLayoutVdom$: masterLayout.DOM,
@@ -65,17 +62,19 @@ function model({ actions, components }) {
 }
 
 function view({ masterLayoutVdom$, onionState$ }) {
-  return xs.combine(masterLayoutVdom$, onionState$)
+  return xs
+    .combine(masterLayoutVdom$, onionState$)
     .map(([masterLayoutVdom, onionState]) =>
       div('.app-container', [
         masterLayoutVdom,
         div('.console-wrap', [
           p('.counterDisplay', [` Onion State: ${onionState}`]),
         ]),
-      ]));
+      ]),
+    );
 }
 
-export default function (sources) {
+export default function(sources) {
   const state = model(intent(sources));
   return {
     DOM: view(state),

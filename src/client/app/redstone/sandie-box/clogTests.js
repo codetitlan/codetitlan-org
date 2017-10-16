@@ -24,9 +24,9 @@ export function functoringStuff() {
   r2.map(t('composition law'));
 
   // valueOf
-  const ints = (Identity(2) + Identity(4));
+  const ints = Identity(2) + Identity(4);
   t('valueOf')(ints); // 6
-  const hi = (Identity('h') + Identity('i'));
+  const hi = Identity('h') + Identity('i');
   t('valueOf')(hi); // "hi"
 
   // toString
@@ -39,18 +39,13 @@ export function functoringStuff() {
   t('iterator')(arr); // [6, 7, 8]
 
   // frange
-  const fRange = (
-    start,
-    end,
-  ) => Array.from(
-    { length: (end - start) + 1 },
-    (x, i) => Identity(i + start),
-  );
+  const fRange = (start, end) =>
+    Array.from({ length: end - start + 1 }, (x, i) => Identity(i + start));
   t('fRange1')(fRange(2, 4));
 }
 
 export function funcMixinsStuff() {
-  const flying = (o) => {
+  const flying = o => {
     let isFlying = false;
     return Object.assign({}, o, {
       fly() {

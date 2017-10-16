@@ -4,7 +4,7 @@ import doTheHookyPooky from './debuggieman';
 import { getRootElement } from './app/redstone/helpers/dom';
 
 // First and foremost... do the hooky pooky !
-((async () => doTheHookyPooky())());
+(async () => doTheHookyPooky())();
 
 // Run the app
 runApp(getRootElement());

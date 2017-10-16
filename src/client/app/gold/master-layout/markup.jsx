@@ -2,7 +2,7 @@
 // @flow-
 import { html } from 'snabbdom-jsx';
 
-export default function ([scrollPosition, scrollButton, mainContent]) {
+export default function([scrollPosition, scrollButton, mainContent]) {
   return (
     <div className="mainContainer">
       <header>
@@ -13,8 +13,12 @@ export default function ([scrollPosition, scrollButton, mainContent]) {
       </header>
       <nav>
         <ul>
-          <li><a href="/somewhere">Somewhere</a></li>
-          <li><a href="/elsewhere">Elsewhere</a></li>
+          <li>
+            <a href="/somewhere">Somewhere</a>
+          </li>
+          <li>
+            <a href="/elsewhere">Elsewhere</a>
+          </li>
         </ul>
       </nav>
       {mainContent}

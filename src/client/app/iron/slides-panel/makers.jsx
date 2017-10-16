@@ -18,22 +18,22 @@ function slideMarkupMaker(slide) {
 
 export function slideMakerMaker(sources) {
   return function slideMaker(slides) {
-    return slides.map((slide, key) => isolateImplicit(
-      BasicSlide,
-      sources,
-      {
+    return slides.map((slide, key) =>
+      isolateImplicit(BasicSlide, sources, {
         className: `slide-${key}`,
         contents: slideMarkupMaker(slide),
-      },
-    ));
+      }),
+    );
   };
 }
 
 export function panelMakerMaker(sources) {
   return function panelMaker(slides) {
-    return slides.map((slide, key) => ArticleContentPanel({
-      DOM: sources.DOM,
-      props: xs.of({ className: `yolo-n${key}`, content$: slide.DOM }),
-    }));
+    return slides.map((slide, key) =>
+      ArticleContentPanel({
+        DOM: sources.DOM,
+        props: xs.of({ className: `yolo-n${key}`, content$: slide.DOM }),
+      }),
+    );
   };
 }

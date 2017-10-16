@@ -2,13 +2,16 @@
 import xs from 'xstream';
 import { adapt } from '@cycle/run/lib/adapt';
 
-export default function makeScrollDriver(options: {duration: number, element?: HTMLElement}) {
-  return function ScrollDriver(sink$: {addListener: (listener: {})=> void}) {
+export default function makeScrollDriver(options: {
+  duration: number,
+  element?: HTMLElement,
+}) {
+  return function ScrollDriver(sink$: { addListener: (listener: {}) => void }) {
     const scrollTo = (element, pos, duration = 600) => {
       if (Number.isNaN(Number(pos)) || duration <= 0) return;
       if (!element) return;
       const diff = pos - element.scrollTop;
-      const perTick = (diff / duration) * 10;
+      const perTick = diff / duration * 10;
       setTimeout(() => {
         if (!element) return;
         element.scrollTop += perTick; // eslint-disable-line

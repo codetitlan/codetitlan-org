@@ -19,7 +19,9 @@ export default function App(selector: string) {
     HTTP: makeHTTPDriver(),
     Scroll: makeScrollDriver({ duration: 400, element: scrollTarget }),
     Gun: makeGunDriver({ root: 'root', peers: ['http://localhost:3210'] }),
-    Log: (msg$) => { msg$.addListener({ next: msg => console.info(msg) }); },
+    Log: msg$ => {
+      msg$.addListener({ next: msg => console.info(msg) });
+    },
   });
 
   return () => {

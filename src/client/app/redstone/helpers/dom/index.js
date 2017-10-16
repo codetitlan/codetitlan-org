@@ -20,9 +20,10 @@ export function getRootElement() {
 export function browserDetection() {
   return {
     // Firefox 1.0+
-    isFirefox: window.InstallTrigger && typeof window.InstallTrigger !== 'undefined',
+    isFirefox:
+      window.InstallTrigger && typeof window.InstallTrigger !== 'undefined',
     // Edge 20+
-    isEdge: !(document.documentMode) && !!window.StyleMedia,
+    isEdge: !document.documentMode && !!window.StyleMedia,
     // Chrome 1+
     isChrome: !!window.chrome && !!window.chrome.webstore,
   };

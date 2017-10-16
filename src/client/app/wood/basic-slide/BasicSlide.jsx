@@ -5,9 +5,7 @@ import { html } from 'snabbdom-jsx';
 export default function BasicSlide(sources: { DOM: any, props: any }) {
   const props$ = sources.props;
   const vdom$ = props$.map(props => (
-    <div className="basicSlide">
-      {props.contents}
-    </div>
+    <div className="basicSlide">{props.contents}</div>
   ));
 
   return {

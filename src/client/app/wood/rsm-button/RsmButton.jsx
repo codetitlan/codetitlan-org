@@ -2,7 +2,7 @@
 // @flow-
 import { html } from 'snabbdom-jsx';
 
-export default function (sources) {
+export default function(sources) {
   const clicks$ = sources.DOM.select('button').events('click');
 
   const props$ = sources.props;
