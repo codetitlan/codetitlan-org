@@ -26,12 +26,14 @@ const baseConfig = {
 
   module: {
     rules: [
-      { // shims
+      {
+        // shims
         test: /\.shim\.js$/,
         use: ['script-loader'],
         exclude: nodeModulesPath,
       },
-      { // eslint
+      {
+        // eslint
         enforce: 'pre',
         test: /\.(js|jsx)$/,
         exclude: nodeModulesPath,
@@ -44,7 +46,8 @@ const baseConfig = {
           },
         ],
       },
-      { // es6 and jsx
+      {
+        // es6 and jsx
         test: /\.(js|jsx)$/,
         exclude: nodeModulesPath,
         use: [
@@ -54,11 +57,13 @@ const baseConfig = {
           },
         ],
       },
-      { // mdl
+      {
+        // mdl
         test: require.resolve('material-design-lite/material'),
         loader: 'exports-loader?componentHandler',
       },
-      { // Style libs imports
+      {
+        // Style libs imports
         test: /src\/client\/styles\/libs\.scss/,
         use: [
           { loader: 'style-loader' },
@@ -69,7 +74,8 @@ const baseConfig = {
         ],
         exclude: /node_modules/,
       },
-      { // sass
+      {
+        // sass
         test: /\.(sass|scss)$/,
         use: [
           // { loader: 'style-loader' },
@@ -80,7 +86,8 @@ const baseConfig = {
         ],
         exclude: [/node_modules/, /src\/client\/styles\/libs*/],
       },
-      { // sugarss
+      {
+        // sugarss
         test: /\.sss$/,
         use: [
           { loader: 'style-loader' },
@@ -88,7 +95,8 @@ const baseConfig = {
           { loader: 'postcss-loader', options: { parser: 'sugarss' } },
         ],
       },
-      { // cssnext
+      {
+        // cssnext
         test: /\.css$/,
         use: [
           { loader: 'style-loader' },
@@ -96,11 +104,10 @@ const baseConfig = {
           { loader: 'postcss-loader' },
         ],
       },
-      { // fonts
+      {
+        // fonts
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader?name=fonts/[name].[ext]',
-        ],
+        use: ['file-loader?name=fonts/[name].[ext]'],
       },
     ],
   },
@@ -130,20 +137,19 @@ const baseConfig = {
   },
 
   devtool: 'inline-source-map',
-
 };
 
 const targets = [
   // 'web', 'webworker', 'node', 'async-node', 'node-webkit', 'electron-main'
   'web',
-].map(target => (
+].map(target =>
   webpackMerge(baseConfig, {
     target,
     output: {
       path: path.resolve(`${__dirname}/dist/${target}`),
       filename: `[name].${target}.js`,
     },
-  })
-));
+  }),
+);
 
 module.exports = targets;
