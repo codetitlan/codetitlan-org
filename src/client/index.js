@@ -1,31 +1,15 @@
 // @flow
-/* global document */
+import { runApp } from './app';
+import doTheHookyPooky from './debuggieman';
+import { getRootElement } from './app/redstone/helpers/dom';
 
-// import runtime from 'serviceworker-webpack-plugin/lib/runtime';
-import { insertDelayedButton, renderApp, buttonsMarkup } from './app';
-import { getRootElement, clearRootElement } from './app/helpers/dom-helpers';
+// First and foremost... do the hooky pooky !
+(async () => doTheHookyPooky())();
 
-declare var customElements;
+// Run the app
+runApp(getRootElement());
 
-function renderWrapper(targetElement: HTMLElement) {
-  renderApp(targetElement, buttonsMarkup());
-  insertDelayedButton(targetElement);
+// Enable HMR
+if (module && module.hot) {
+  module.hot.accept(['./app', './debuggieman'], async () => doTheHookyPooky());
 }
-
-const rootElement = getRootElement();
-
-renderWrapper(rootElement);
-
-if (module.hot) {
-  module.hot.accept();
-  module.hot.dispose(clearRootElement(rootElement));
-}
-
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     const registration = runtime.register();
-//     registration.then((dodo) => {
-//       console.log('our serviceWorker has been installed', dodo);
-//     });
-//   });
-// }

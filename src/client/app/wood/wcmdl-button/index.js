@@ -1,4 +1,4 @@
 // @flow
-import CompMdlButton from './wcmdl-button';
+import WcmdlButton from './wcmdl-button';
 
-export default CompMdlButton;
+export default WcmdlButton;
