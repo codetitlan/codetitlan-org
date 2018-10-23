@@ -1,20 +1,27 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import Helmet from "react-helmet";
+
+import TypeWritter from "./components/TypeWritter";
+
 import "./App.css";
 
-const aThing = "thing";
-
+// A useless comment
 class App extends Component {
+  state = {
+    appName: "Codetitlan",
+    welcomeMessage: "Welcome to this thing",
+    messages: ["The answer to the life the", "universe and everything", "is 42"]
+  };
+
   render() {
+    const { appName, welcomeMessage, messages } = this.state;
     return (
       <div className="App">
+        <Helmet title={appName} />
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to a {aThing}</h1>
+          <h1 className="App-title">{welcomeMessage}</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <TypeWritter speed="normal" lines={messages} cursor />
       </div>
     );
   }

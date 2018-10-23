@@ -1,0 +1,36 @@
+.TypeWritter {
+  color: #0d0d0d;
+}
+
+.withCursor {
+  position: relative;
+  display: inline;
+}
+
+.withCursor::after {
+  position: absolute;
+  top: 0;
+  content: "";
+  right: -1rem;
+  height: 1rem;
+  width: 0.5rem;
+  display: inline-block;
+  vertical-align: bottom;
+  background-color: #00000080;
+}
+
+.cursorBlinks::after {
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
