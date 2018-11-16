@@ -16,16 +16,20 @@ class TypeWritter extends Component {
     this.state = {
       typed: [],
       position: 0,
+      active: "idle",
       toType: [...props.lines]
     };
+
+    this.typeNextLine = this.typeNextLine.bind(this);
   }
 
   typeNextLine() {
     const { position, toType, typed } = this.state;
     const { onDoneTyping } = this.props;
-    if (position >= toType.length)
+    if (position >= toType.length) {
+      this.setState({ active: "idle" });
       return typeof onDoneTyping === "function" && onDoneTyping(typed);
-
+    }
     this.setState({
       typed: [...typed, toType[position]],
       active: position,
@@ -34,29 +38,23 @@ class TypeWritter extends Component {
   }
 
   componentDidMount() {
-    this.typeNextLine.bind(this)();
+    this.typeNextLine();
   }
 
   render() {
-    const { render, speed, cursor } = this.props;
-    const { typed, active } = this.state;
+    const { render, speed } = this.props;
+    const { typed } = this.state;
 
     return render(
       <div>
         {typed.map((x, k) => (
-          <div
+          <TypeLine
             key={k}
-            className={`typeWritterLine ${active ? "typingNow" : ""} ${
-              cursor && k === active ? "withCursor cursorBlinks" : ""
-            }`}
+            {...this.speeds[speed]}
+            onDoneTyping={this.typeNextLine}
           >
-            <TypeLine
-              {...this.speeds[speed]}
-              onDoneTyping={this.typeNextLine.bind(this)}
-            >
-              {x}
-            </TypeLine>
-          </div>
+            {x}
+          </TypeLine>
         ))}
       </div>
     );
@@ -70,7 +68,8 @@ TypeWritter.defaultProps = {
   speed: "normal",
   cursor: false,
   /** Identity Function */
-  render: x => x
+  render: x => x,
+  onDoneTyping: () => void 0
 };
 
 TypeWritter.propTypes = {

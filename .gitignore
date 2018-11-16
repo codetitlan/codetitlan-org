@@ -3,11 +3,15 @@
 # dependencies
 /node_modules
 
+# sub packages (like catalog)
+/**/node_modules
+
 # testing
 /coverage
 
 # production
 #/build
+
 
 # misc
 .DS_Store

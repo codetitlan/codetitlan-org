@@ -9,19 +9,15 @@ import "./App.css";
 class App extends Component {
   state = {
     appName: "Codetitlan",
-    welcomeMessage: "Welcome to this thing",
     messages: ["The answer to the life the", "universe and everything", "is 42"]
   };
 
   render() {
-    const { appName, welcomeMessage, messages } = this.state;
+    const { appName, messages } = this.state;
     return (
       <div className="App">
         <Helmet title={appName} />
-        <header className="App-header">
-          <h1 className="App-title">{welcomeMessage}</h1>
-        </header>
-        <TypeWritter speed="normal" lines={messages} cursor />
+        <TypeWritter speed="fast" lines={messages} cursor />
       </div>
     );
   }

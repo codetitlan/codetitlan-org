@@ -5,7 +5,7 @@ import { randomlyTimedForEach } from "./helpers";
 import "./TypeLine.css";
 
 /**
- * Typewritte a line of text, taking a string from `props.children`
+ * Typewrite a line of text, taking a string from `props.children`
  */
 class TypeLine extends Component {
   constructor(props) {
@@ -13,18 +13,19 @@ class TypeLine extends Component {
     this.state = {
       output: ""
     };
+    this.typeChar = this.typeChar.bind(this);
+  }
+
+  typeChar(c) {
+    this.setState(prevState => ({
+      output: prevState.output + c
+    }));
   }
 
   componentDidMount() {
     const { children, onDoneTyping, rangeMin, rangeMax } = this.props;
 
-    const timedType = randomlyTimedForEach(
-      nextChar => this.setState({ output: this.state.output + nextChar }),
-      rangeMin,
-      rangeMax
-    );
-
-    timedType(children || []).then(
+    randomlyTimedForEach(this.typeChar, rangeMin, rangeMax)(children).then(
       res => typeof onDoneTyping === "function" && onDoneTyping(res)
     );
   }
@@ -40,15 +41,14 @@ export default TypeLine;
 TypeLine.defaultProps = {
   rangeMin: 70,
   rangeMax: 250,
-  /** Identity Function */
+  children: "",
+  /** Render identity by default */
   render: x => x
 };
 
 TypeLine.propTypes = {
   /** the text to typewrite */
   children: PropTypes.string,
-  /** class names to inherit */
-  className: PropTypes.string,
   /** minimum time in ms to wait for next char */
   rangeMin: PropTypes.number,
   /** maximum time in ms to wait for next char */
