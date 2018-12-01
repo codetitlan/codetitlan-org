@@ -2,8 +2,6 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import { randomlyTimedForEach } from "./helpers";
 
-import "./TypeLine.css";
-
 /**
  * Typewrite a line of text, taking a string from `props.children`
  */

@@ -1,3 +1,3 @@
-import TypeWritter from "./TypeWritter";
+import TypeWrite from "./TypeWrite";
 
-export default TypeWritter;
+export default TypeWrite;

@@ -22,23 +22,31 @@ storiesOf("TypeWritter", module)
     <div>
       <TypeWritter
         speed="fast"
-        lines={["This text will be typed at", "a fast rate"]}
+        lines={["This text will be typed at", " a fast rate"]}
       />
       <hr />
       <TypeWritter
         speed="normal"
-        lines={["This text will be typed at", "a normal rate"]}
+        lines={["This text will be typed at", " a normal rate"]}
       />
       <hr />
       <TypeWritter
         speed="slow"
-        lines={["This text will be typed at", "a slow rate"]}
+        lines={["This text will be typed at", " a slow rate"]}
       />
     </div>
   ))
   .add("Long text", () => <TypeWritter lines={someLines} />)
-  .add("With Cursor", () => (
-    <TypeWritter speed="fast" lines={someLines} cursor />
+  .add("Cursor", () => <TypeWritter speed="fast" lines={someLines} cursor />)
+  .add("Custom Renderer", () => (
+    <TypeWritter
+      cursor
+      speed="slow"
+      render={x => (
+        <div style={{ color: "red", backgroundColor: "#d0d0d0" }}>{x}</div>
+      )}
+      lines={["The answer to", "life, the universe and", "everything is: 42"]}
+    />
   ))
   .add("On done typing", () => (
     <TypeWritter

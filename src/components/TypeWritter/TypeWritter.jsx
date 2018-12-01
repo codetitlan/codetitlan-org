@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import TypeLine from "../TypeLine";
+import TypeWrite from "../TypeWrite";
 
-import "./TypeWritter.css";
+import Cursor from "./StyledCursor";
 
 class TypeWritter extends Component {
   constructor(props) {
     super(props);
     this.speeds = {
-      fast: { rangeMin: 20, rangeMax: 70 },
-      slow: { rangeMin: 150, rangeMax: 250 },
-      normal: { rangeMin: 70, rangeMax: 150 }
+      fast: { min: 20, max: 70 },
+      slow: { min: 150, max: 250 },
+      normal: { min: 70, max: 150 }
     };
     this.state = {
       typed: [],
@@ -42,19 +42,19 @@ class TypeWritter extends Component {
   }
 
   render() {
-    const { render, speed } = this.props;
+    const { render, speed, cursor } = this.props;
     const { typed } = this.state;
 
     return render(
       <div>
-        {typed.map((x, k) => (
-          <TypeLine
-            key={k}
-            {...this.speeds[speed]}
-            onDoneTyping={this.typeNextLine}
-          >
-            {x}
-          </TypeLine>
+        {typed.map((itm, key) => (
+          <div key={key}>
+            <Cursor cursor={cursor && key === this.state.active}>
+              <TypeWrite {...this.speeds[speed]} onDone={this.typeNextLine}>
+                {`${itm}`}
+              </TypeWrite>
+            </Cursor>
+          </div>
         ))}
       </div>
     );

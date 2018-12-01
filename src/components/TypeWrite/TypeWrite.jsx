@@ -1,8 +1,7 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
-import { later } from "kefir";
 
-import "./TypeWrite.css";
+import { later, sequentially } from "kefir";
 
 class TypeWrite extends Component {
   constructor(props) {
@@ -15,30 +14,25 @@ class TypeWrite extends Component {
   rng(min, max) {
     return (
       parseInt(
-        (crypto.getRandomValues(new Uint32Array(1)) / (0xffffffff + 1)) * max +
-          1,
+        (crypto.getRandomValues(new Uint32Array(1)) / (0xffffffff + 1)) *
+          (max + 1),
         10
       ) + min
     );
   }
 
+  typeChar(c) {
+    this.setState(prevState => ({
+      output: prevState.output + c
+    }));
+  }
+
   componentDidMount() {
-    const { children, min, max } = this.props;
-    const textArray = [...children];
-
-    textArray.reduce(
-      (x, ac) =>
-        later(this.rng(min, max), x).onValue(v =>
-          this.setState(ps => ({ output: ps.output + v }))
-        ),
-      later(0, this.state.output)
-    );
-
-    // sequentially(100, textArray).onValue(v =>
-    //   this.setState({ output: this.state.output + v })
-    // );
-
-    // const stream$ = sequentially(0, textArray).map(x => x);
+    const { children, min, max, onDone } = this.props;
+    sequentially(0, [...children])
+      .flatMapConcat(x => later(this.rng(min, max), x))
+      .onValue(c => this.typeChar(c))
+      .onEnd(_ => onDone(this.state.output));
   }
 
   render() {
@@ -50,10 +44,10 @@ export default TypeWrite;
 
 TypeWrite.defaultProps = {
   children: "",
-  min: 10,
-  max: 10,
+  min: 20,
+  max: 50,
   render: x => x,
-  onDoneTyping: () => void 0
+  onDone: () => void 0
 };
 
 TypeWrite.propTypes = {
@@ -66,7 +60,7 @@ TypeWrite.propTypes = {
   /** max speed of the typingin ms */
   max: PropTypes.number,
   /** function to execute once the text has been printed out */
-  onDoneTyping: PropTypes.func,
+  onDone: PropTypes.func,
   /** Function as child pattern but using a "render" prop instead  */
   render: PropTypes.func
 };

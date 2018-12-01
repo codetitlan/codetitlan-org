@@ -1,48 +1,31 @@
-Basic use:
+Zero configuration:
 
 ```js
-<TypeWrite
-  lines={["The answer to", "life, the universe and", "everything is: 42"]}
-/>
+<TypeWrite>Is 🍕 time for you !!!</TypeWrite>
 ```
 
-Change speed:
+Custom timers:
 
 ```js
-<TypeWrite
-  speed="fast"
-  lines={["The answer to", "life, the universe and", "everything is: 42"]}
-/>
+<TypeWrite min={100} max={200}>
+  I want some 🍕 too !!!
+</TypeWrite>
 ```
 
-With a cursor:
+Using a render function:
 
 ```js
-<TypeWrite
-  cursor
-  speed="slow"
-  lines={["The answer to", "life, the universe and", "everything is: 42"]}
-/>
+<TypeWrite render={x => <h4>{x}</h4>}>Pizza time for me too</TypeWrite>
 ```
 
-With a custom renderer:
+Using a onDoneTyping hook:
 
 ```js
 <TypeWrite
-  cursor
-  speed="slow"
-  render={x => (
-    <div style={{ color: "red", backgroundColor: "#d0d0d0" }}>{x}</div>
-  )}
-  lines={["The answer to", "life, the universe and", "everything is: 42"]}
-/>
-```
-
-Done typing handler
-
-```js
-<TypeWrite
-  onDoneTyping={() => "Do something here!"}
-  lines={["The answer to", "life, the universe and", "everything is: 42"]}
-/>
+  onDone={() => {
+    /* Do stuff */
+  }}
+>
+  I'll do something when I'm done typing this
+</TypeWrite>
 ```
