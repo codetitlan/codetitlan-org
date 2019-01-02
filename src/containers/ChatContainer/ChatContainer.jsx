@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TypeWritter from "../../components/TypeWritter";
 import ChatUserInput from "../../components/ChatUserInput";
+import ChatMessageBox from "../../components/ChatMessageBox";
 
 export default class ChatContainer extends Component {
   constructor(props) {
@@ -59,6 +60,8 @@ export default class ChatContainer extends Component {
         {conversation.map((i, k) => (
           <div key={k}>{i}</div>
         ))}
+        <hr />
+        <ChatMessageBox conversation={conversation} />
         {thinking && <div>Thinking...</div>}
         <ChatUserInput onSubmit={this.handleNewUserMessage} />
       </div>

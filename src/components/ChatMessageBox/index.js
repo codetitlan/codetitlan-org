@@ -1,3 +1,3 @@
-import TypeLine from "./TypeLine";
+import ChatMessageBox from "./ChatMessageBox";
 
-export default TypeLine;
+export default ChatMessageBox;
