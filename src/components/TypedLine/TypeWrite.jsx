@@ -1,5 +1,6 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
+
 import { later, sequentially } from "kefir";
 
 const randomIntInRange = (min, max) =>

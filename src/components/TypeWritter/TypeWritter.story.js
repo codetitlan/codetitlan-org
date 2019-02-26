@@ -37,10 +37,12 @@ storiesOf("TypeWritter", module)
     </div>
   ))
   .add("Long text", () => <TypeWritter lines={someLines} />)
-  .add("Cursor", () => <TypeWritter speed="fast" lines={someLines} cursor />)
+  .add("Cursor", () => (
+    <TypeWritter speed="fast" lines={someLines} cursor={true} />
+  ))
   .add("Custom Renderer", () => (
     <TypeWritter
-      cursor
+      cursor={true}
       speed="slow"
       render={x => (
         <div style={{ color: "red", backgroundColor: "#d0d0d0" }}>{x}</div>

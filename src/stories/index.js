@@ -1,4 +1,3 @@
-import "../components/TypeLine/TypeLine.story";
 import "../components/TypeWritter/TypeWritter.story";
 import "../components/TypeWrite/TypeWrite.story";
 import "../components/ChatMessageBox/ChatMessageBox.story";
