@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Typewriter from 'typewriter-effect';
-import typewriter from 'typewriter-effect';
+// import typewriter from 'typewriter-effect';
 
 const welcomeMessage = [
   'The answer to life' +
