@@ -6,9 +6,9 @@ import Typewriter from 'typewriter-effect';
 const welcomeMessage = [
   'The answer to life' +
     '\n' +
-    'the universe and everything!' +
+    'the universe and everything ...' +
     '\n' +
-    'is 42!',
+    '...was never 42!',
 ];
 
 export function HomePage() {
@@ -24,24 +24,8 @@ export function HomePage() {
           autoStart: true,
           loop: true,
         }}
-        onInit={tw => tw.start()}
+        onInit={tw => tw.pauseFor(5000).start()}
       />
-
-      {/* <Typewriter
-        onInit={typewriter => {
-          typewriter
-            .typeString('is 42!')
-            .callFunction(() => {
-              console.log('String typed out!');
-            })
-            .pauseFor(2500)
-            .deleteAll()
-            .callFunction(() => {
-              console.log('All strings were deleted');
-            })
-            .start();
-        }}
-      /> */}
     </>
   );
 }
