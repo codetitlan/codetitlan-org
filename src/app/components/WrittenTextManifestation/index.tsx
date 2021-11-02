@@ -2,7 +2,7 @@
  * WrittenTextManifestation
  *
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Typewriter from 'typewriter-effect';
 // import styled from 'styled-components/macro';
 
@@ -40,11 +40,6 @@ export function WrittenTextManifestation({
   typingDelay = 'natural',
   onDone = x => x,
 }: WrittenTextManifestationProps) {
-  // useEffect(() => {
-  //   return () => {
-  //     console.log('Cleanup yoloman', restOfDialogue.length);
-  //   };
-  // });
   const provisionedStack = {
     queue: [...restOfDialogue],
     done: [firstString],
