@@ -4,7 +4,6 @@
  */
 import React, { useState } from 'react';
 import Typewriter from 'typewriter-effect';
-// import styled from 'styled-components/macro';
 
 type Stack = {
   queue: string[];
