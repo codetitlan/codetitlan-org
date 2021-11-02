@@ -1,3 +1,10 @@
 {
-  "title": "welcome"
+  "WelcomeDialogue": {
+    "welcomeToCodetitlan": "Welcome to Codetitlan, this is a community for smart people like you",
+    "myNameIsX": "My name is Navi"
+  },
+  "title": "welcome",
+  "translations": {
+    "someThing": "default value"
+  }
 }

@@ -1,6 +1,8 @@
+import { GenartCore } from 'app/components/GenartCore';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { PersonalIncarnation } from './Features/PersonalIncarnation';
+import { Text } from 'rebass';
+import { WelcomeInteraction } from './Features/WelcomeDialogue/components/WelcomeInteraction';
 
 export function HomePage() {
   return (
@@ -9,7 +11,10 @@ export function HomePage() {
         <title>Codetitlan </title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <PersonalIncarnation />
+      <Text color="secondary">
+        <WelcomeInteraction />
+      </Text>
+      <GenartCore></GenartCore>
     </>
   );
 }

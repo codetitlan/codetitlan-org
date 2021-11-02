@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContactForm /> should render and match the snapshot 1`] = `
+<React.Fragment>
+  <Helmet
+    defer={true}
+    encodeSpecialCharacters={true}
+    prioritizeSeoTags={false}
+  >
+    <title>
+      Codetitlan 
+    </title>
+    <meta
+      content="A Boilerplate application homepage"
+      name="description"
+    />
+  </Helmet>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      defaultValue="test"
+      name="example"
+      onBlur={[Function]}
+      onChange={[Function]}
+    />
+    <input
+      name="exampleRequired"
+      onBlur={[Function]}
+      onChange={[Function]}
+    />
+    <ForwardRef
+      type="submit"
+    >
+      Submit
+    </ForwardRef>
+  </form>
+</React.Fragment>
+`;
