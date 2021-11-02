@@ -43,8 +43,8 @@ function stringifyRecursively(content, key) {
   const regex = RegExp(pattern, 'gim');
   let match = regex.exec(content);
   if (match && match.length > 1) {
-    const key = match[1].trim();
-    root = stringifyRecursively(content, key);
+    const innerKey = match[1].trim();
+    root = stringifyRecursively(content, innerKey);
   } else if (isImportedTranslationObject(content, root)) {
     root = null;
   }

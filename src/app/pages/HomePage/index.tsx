@@ -1,15 +1,9 @@
+// import { Cubimation } from 'app/components/Cubimation';
+import { GenartCore } from 'app/components/GenartCore';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import Typewriter from 'typewriter-effect';
-// import typewriter from 'typewriter-effect';
-
-const welcomeMessage = [
-  'The answer to life' +
-    '\n' +
-    'the universe and everything ...' +
-    '\n' +
-    '...was never 42!',
-];
+import { Text } from 'rebass';
+import { WelcomeInteraction } from './Features/WelcomeDialogue/components/WelcomeInteraction';
 
 export function HomePage() {
   return (
@@ -18,14 +12,11 @@ export function HomePage() {
         <title>Home Page</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Typewriter
-        options={{
-          strings: welcomeMessage,
-          autoStart: true,
-          loop: true,
-        }}
-        onInit={tw => tw.pauseFor(5000).start()}
-      />
+      <Text color="secondary">
+        <WelcomeInteraction />
+      </Text>
+      <GenartCore></GenartCore>
+      {/* <Cubimation /> */}
     </>
   );
 }

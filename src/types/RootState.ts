@@ -1,3 +1,5 @@
+import { PersonalIncarnationState } from 'app/components/PersonalIncarnation/slice/types';
+import { WelcomeDialogueState } from 'app/pages/HomePage/Features/WelcomeDialogue/slice/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -5,5 +7,7 @@
   You have to declare them here manually
 */
 export interface RootState {
+  personalIncarnation?: PersonalIncarnationState;
+  welcomeDialogue?: WelcomeDialogueState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }
