@@ -15,6 +15,7 @@ export function HomePage() {
       <Text color="secondary">
         <WelcomeInteraction />
       </Text>
+      {/* <Button>okie dokie</Button> */}
       <GenartCore></GenartCore>
       {/* <Cubimation /> */}
     </>
