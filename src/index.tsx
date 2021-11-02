@@ -17,12 +17,10 @@ import 'sanitize.css/sanitize.css';
 
 // Import root app
 import { App } from 'app';
-
 import { HelmetProvider } from 'react-helmet-async';
-
 import { configureAppStore } from 'store/configureStore';
-
 import reportWebVitals from 'reportWebVitals';
+import ThemeUiWrapper from 'styles/ThemeUiWrapper';
 
 // Initialize languages
 import './locales/i18n';
@@ -32,11 +30,13 @@ const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 ReactDOM.render(
   <Provider store={store}>
-    <HelmetProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </HelmetProvider>
+    <ThemeUiWrapper>
+      <HelmetProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </HelmetProvider>
+    </ThemeUiWrapper>
   </Provider>,
   MOUNT_NODE,
 );
@@ -46,6 +46,11 @@ if (module.hot) {
   module.hot.accept(['./locales/i18n'], () => {
     // No need to render the App again because i18next works with the hooks
   });
+}
+
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start({ onUnhandledRequest: 'bypass' });
 }
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WelcomeInteraction  /> should match snapshot 1`] = `
+.c0 {
+  border: 1px solid #000000;
+  margin: 3rem;
+  padding: 1rem;
+}
+
+<div
+  class="c0"
+>
+  <div
+    class="Typewriter"
+    data-testid="typewriter-wrapper"
+  >
+    <span
+      class="Typewriter__wrapper"
+    />
+    <span
+      class="Typewriter__cursor"
+    >
+      |
+    </span>
+  </div>
+</div>
+`;

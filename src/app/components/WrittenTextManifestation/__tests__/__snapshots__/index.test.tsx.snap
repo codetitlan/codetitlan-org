@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WrittenTextManifestation  /> should call a function on end 1`] = `
+<div
+  class="Typewriter"
+  data-testid="typewriter-wrapper"
+>
+  <span
+    class="Typewriter__wrapper"
+  />
+  <span
+    class="Typewriter__cursor"
+  >
+    |
+  </span>
+</div>
+`;
+
+exports[`<WrittenTextManifestation  /> should match snapshot 1`] = `
+<div
+  class="Typewriter"
+  data-testid="typewriter-wrapper"
+>
+  <span
+    class="Typewriter__wrapper"
+  />
+  <span
+    class="Typewriter__cursor"
+  >
+    |
+  </span>
+</div>
+`;
