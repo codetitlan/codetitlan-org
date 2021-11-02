@@ -5,11 +5,12 @@ import { Helmet } from 'react-helmet-async';
 import { Text, Button } from 'rebass';
 import { WelcomeInteraction } from './Features/WelcomeDialogue/components/WelcomeInteraction';
 
+
 export function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Home Page</title>
+        <title>Codetitlan </title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <Text color="secondary">
@@ -18,6 +19,7 @@ export function HomePage() {
       {/* <Button>okie dokie</Button> */}
       <GenartCore></GenartCore>
       {/* <Cubimation /> */}
+
     </>
   );
 }
