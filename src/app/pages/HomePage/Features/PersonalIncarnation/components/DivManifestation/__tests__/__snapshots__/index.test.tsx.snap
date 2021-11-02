@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DivManifestation  /> should match snapshot 1`] = `
+<div
+  class="DivManifestation__Div-sc-1oiyuw8-0"
+>
+  DivManifestation
+</div>
+`;
