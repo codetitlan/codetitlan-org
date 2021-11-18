@@ -20,6 +20,12 @@ exports[`<HomePage /> should render and match the snapshot 1`] = `
   >
     <WelcomeInteraction />
   </ForwardRef>
-  <Memo />
+  <Memo
+    canvasHeight={600}
+    canvasWidth={600}
+    palette="MONOCHROME"
+    step={16}
+    varianceFactor={100}
+  />
 </React.Fragment>
 `;
